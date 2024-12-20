@@ -1,0 +1,35 @@
+class Strings {
+  static const appName = 'My Profile';
+  static const email = 'Email';
+  static const login = 'Login';
+  static const pleaseLoginToContinue = 'Please login to continue';
+  static const password = 'Password';
+  static const rememberMe = 'Remember me';
+  static const cancel = 'Cancel';
+  static const continueString = 'Continue';
+  static const selectImage = 'Select image';
+  static const camera = 'Camera';
+  static const gallery = 'Gallery';
+  static const emailValidation = 'Please enter email';
+  static const validEmailValidation = 'Please enter valid email';
+  static const passwordValidation = 'Please enter password';
+  static const validPasswordValidation = 'Please enter valid password';
+  static const nameValidation = 'Please enter name';
+  static const pictureValidation = 'Please upload a picture';
+  static const skillsValidation = 'Please enter skills';
+  static const workExperienceValidation = 'Please enter work experience';
+  static const select = 'Select';
+  static const welcomeToMyProfile = 'Welcome to\nMy Profile';
+  static const invalidCredentials = 'Invalid credentials';
+  static const addPhoto = 'Add photo';
+  static const name = 'Name';
+  static const workExperience = 'Work experience';
+  static const skills = 'Skills';
+  static const save = 'Save';
+  static const yes = 'Yes';
+  static const no = 'No';
+  static const logOut = 'Log out';
+  static const alert = 'Alert';
+  static const alertMessage = 'Are you sure you want to go back? All the changes will be lost';
+  static const logoutMessage = 'Are you sure you want to log out?';
+}
