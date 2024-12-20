@@ -167,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         _passwordController.text.trim(),
                       )) {
                     if (_emailController.text.trim() ==
-                            'ronak.panchal@nexuslinkservices.in' &&
+                            'ronak@varianceinfotech.com' &&
                         _passwordController.text.trim() == 'ronakpanchal') {
                       Prefs.setString(
                           key: Constants.email,
