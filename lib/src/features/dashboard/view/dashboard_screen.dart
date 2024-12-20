@@ -51,6 +51,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
       ),
       body: SingleChildScrollView(
+        physics: ClampingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(

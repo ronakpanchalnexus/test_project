@@ -79,205 +79,208 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           textAlign: TextAlign.start,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 30.0,
-            ),
-            Center(
-              child: Container(
-                height: 100.0,
-                width: 100.0,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colours.colorABABAB,
-                    width: 1.0,
+      body: SingleChildScrollView(
+        physics: ClampingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 30.0,
+              ),
+              Center(
+                child: Container(
+                  height: 100.0,
+                  width: 100.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colours.colorABABAB,
+                      width: 1.0,
+                    ),
                   ),
-                ),
-                child: Center(
-                  child: _kSelectedImage != null
-                      ? Stack(
-                          children: [
-                            ClipOval(
-                              child: SizedBox.fromSize(
-                                size: Size.fromRadius(50), // Image radius
-                                child: Image.file(
-                                  _kSelectedImage!,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(20.0),
-                                      child: Image.asset(
-                                        MediaRes.icUserPlaceHolder,
-                                        fit: BoxFit.cover,
-                                      ),
+                  child: Center(
+                    child: _kSelectedImage != null
+                        ? Stack(
+                            children: [
+                              ClipOval(
+                                child: SizedBox.fromSize(
+                                  size: Size.fromRadius(50), // Image radius
+                                  child: Image.file(
+                                    _kSelectedImage!,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(20.0),
+                                        child: Image.asset(
+                                          MediaRes.icUserPlaceHolder,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 0.0,
+                                right: 0.0,
+                                child: SafeGestureDetector(
+                                  onTap: () {
+                                    SelectImageWidget().selectFromGallery(
+                                      context,
+                                      (filepath, files) {
+                                        Navigator.pop(context);
+                                        if (filepath.isNotEmpty) {
+                                          setState(() {
+                                            _kSelectedImage = File(filepath);
+                                          });
+                                        }
+                                      },
                                     );
                                   },
+                                  child: SvgPicture.asset(
+                                    MediaRes.icEdit,
+                                    width: 30.0,
+                                    height: 30.0,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Positioned(
-                              bottom: 0.0,
-                              right: 0.0,
-                              child: SafeGestureDetector(
-                                onTap: () {
-                                  SelectImageWidget().selectFromGallery(
-                                    context,
-                                    (filepath, files) {
-                                      Navigator.pop(context);
-                                      if (filepath.isNotEmpty) {
-                                        setState(() {
-                                          _kSelectedImage = File(filepath);
-                                        });
-                                      }
-                                    },
-                                  );
+                            ],
+                          )
+                        : CommonTextView(
+                            text: Strings.addPhoto,
+                            fontSize: 12.0,
+                            color: Colours.color9CA2A8,
+                            fontFamily: Fonts.monaSansMedium,
+                            fontWeight: FontWeight.w500,
+                            textAlign: TextAlign.center,
+                            onTap: () async {
+                              SelectImageWidget().selectFromGallery(
+                                context,
+                                (filepath, files) {
+                                  Navigator.pop(context);
+                                  if (filepath.isNotEmpty) {
+                                    setState(() {
+                                      _kSelectedImage = File(filepath);
+                                    });
+                                  }
                                 },
-                                child: SvgPicture.asset(
-                                  MediaRes.icEdit,
-                                  width: 30.0,
-                                  height: 30.0,
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                      : CommonTextView(
-                          text: Strings.addPhoto,
-                          fontSize: 12.0,
-                          color: Colours.color9CA2A8,
-                          fontFamily: Fonts.monaSansMedium,
-                          fontWeight: FontWeight.w500,
-                          textAlign: TextAlign.center,
-                          onTap: () async {
-                            SelectImageWidget().selectFromGallery(
-                              context,
-                              (filepath, files) {
-                                Navigator.pop(context);
-                                if (filepath.isNotEmpty) {
-                                  setState(() {
-                                    _kSelectedImage = File(filepath);
-                                  });
-                                }
-                              },
-                            );
-                          },
-                        ),
+                              );
+                            },
+                          ),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            CommonTextView(
-              text: Strings.name,
-              fontSize: 14,
-              color: Colours.textPrimaryColor,
-              fontFamily: Fonts.monaSansMedium,
-              fontWeight: FontWeight.w500,
-            ),
-            SizedBox(
-              height: 8.0,
-            ),
-            CommonTextField(
-              controller: _nameController,
-              hint: Strings.name,
-              textInputAction: TextInputAction.next,
-              inputType: TextInputType.emailAddress,
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            CommonTextView(
-              text: Strings.email,
-              fontSize: 14,
-              color: Colours.textPrimaryColor,
-              fontFamily: Fonts.monaSansMedium,
-              fontWeight: FontWeight.w500,
-            ),
-            SizedBox(
-              height: 8.0,
-            ),
-            CommonTextField(
-              controller: _emailController,
-              hint: Strings.email,
-              textInputAction: TextInputAction.next,
-              inputType: TextInputType.text,
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            CommonTextView(
-              text: Strings.skills,
-              fontSize: 14,
-              color: Colours.textPrimaryColor,
-              fontFamily: Fonts.monaSansMedium,
-              fontWeight: FontWeight.w500,
-            ),
-            SizedBox(
-              height: 8.0,
-            ),
-            CommonTextField(
-              controller: _skillsController,
-              hint: Strings.skills,
-              textInputAction: TextInputAction.next,
-              inputType: TextInputType.text,
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            CommonTextView(
-              text: Strings.workExperience,
-              fontSize: 14,
-              color: Colours.textPrimaryColor,
-              fontFamily: Fonts.monaSansMedium,
-              fontWeight: FontWeight.w500,
-            ),
-            SizedBox(
-              height: 8.0,
-            ),
-            CommonTextField(
-              controller: _workExperienceController,
-              hint: Strings.workExperience,
-              textInputAction: TextInputAction.done,
-              inputType: TextInputType.text,
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            CommonButton(
-              text: Strings.save,
-              onTap: () {
-                if (ValidationHelper.emailValidator(
-                  context,
-                  _emailController.text.trim(),
-                )) {
-                  Prefs.setString(
-                      key: Constants.email,
-                      value: _emailController.text.trim());
-                  Prefs.setString(
-                      key: Constants.name, value: _nameController.text.trim());
-                  Prefs.setString(
-                      key: Constants.skills,
-                      value: _skillsController.text.trim());
-                  Prefs.setString(
-                      key: Constants.workExperience,
-                      value: _workExperienceController.text.trim());
-                  Prefs.setString(
-                      key: Constants.profilePicture,
-                      value: _kSelectedImage?.path ?? '');
-                  Navigator.pop(context);
-                }
-              },
-            ),
-          ],
+              SizedBox(
+                height: 20.0,
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              CommonTextView(
+                text: Strings.name,
+                fontSize: 14,
+                color: Colours.textPrimaryColor,
+                fontFamily: Fonts.monaSansMedium,
+                fontWeight: FontWeight.w500,
+              ),
+              SizedBox(
+                height: 8.0,
+              ),
+              CommonTextField(
+                controller: _nameController,
+                hint: Strings.name,
+                textInputAction: TextInputAction.next,
+                inputType: TextInputType.emailAddress,
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              CommonTextView(
+                text: Strings.email,
+                fontSize: 14,
+                color: Colours.textPrimaryColor,
+                fontFamily: Fonts.monaSansMedium,
+                fontWeight: FontWeight.w500,
+              ),
+              SizedBox(
+                height: 8.0,
+              ),
+              CommonTextField(
+                controller: _emailController,
+                hint: Strings.email,
+                textInputAction: TextInputAction.next,
+                inputType: TextInputType.text,
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              CommonTextView(
+                text: Strings.skills,
+                fontSize: 14,
+                color: Colours.textPrimaryColor,
+                fontFamily: Fonts.monaSansMedium,
+                fontWeight: FontWeight.w500,
+              ),
+              SizedBox(
+                height: 8.0,
+              ),
+              CommonTextField(
+                controller: _skillsController,
+                hint: Strings.skills,
+                textInputAction: TextInputAction.next,
+                inputType: TextInputType.text,
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              CommonTextView(
+                text: Strings.workExperience,
+                fontSize: 14,
+                color: Colours.textPrimaryColor,
+                fontFamily: Fonts.monaSansMedium,
+                fontWeight: FontWeight.w500,
+              ),
+              SizedBox(
+                height: 8.0,
+              ),
+              CommonTextField(
+                controller: _workExperienceController,
+                hint: Strings.workExperience,
+                textInputAction: TextInputAction.done,
+                inputType: TextInputType.text,
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              CommonButton(
+                text: Strings.save,
+                onTap: () {
+                  if (ValidationHelper.emailValidator(
+                    context,
+                    _emailController.text.trim(),
+                  )) {
+                    Prefs.setString(
+                        key: Constants.email,
+                        value: _emailController.text.trim());
+                    Prefs.setString(
+                        key: Constants.name, value: _nameController.text.trim());
+                    Prefs.setString(
+                        key: Constants.skills,
+                        value: _skillsController.text.trim());
+                    Prefs.setString(
+                        key: Constants.workExperience,
+                        value: _workExperienceController.text.trim());
+                    Prefs.setString(
+                        key: Constants.profilePicture,
+                        value: _kSelectedImage?.path ?? '');
+                    Navigator.pop(context);
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
